@@ -17,9 +17,9 @@ export default function Dashboard() {
     }
 
     function formatBRL(value) {
-        return value.toLocaleString("pt-BR", {
+        return Number(value).toLocaleString("pt-BR", {
             style: "currency",
-            currency: "BRL"
+            currency: "BRL",
         })
     }
 
@@ -37,7 +37,7 @@ export default function Dashboard() {
         const payload = {
             description,
             amount: normalizeAmount(amount),
-            type
+            type,
         }
 
         if (editingId) {
@@ -75,7 +75,6 @@ export default function Dashboard() {
         window.location.href = "/login"
     }
 
-
     useEffect(() => {
         loadTransactions()
     }, [])
@@ -84,151 +83,180 @@ export default function Dashboard() {
     // Cálculos
     // ===============================
     const income = transactions
-        .filter(t => t.type === "income")
+        .filter((t) => t.type === "income")
         .reduce((acc, t) => acc + Number(t.amount), 0)
 
     const expense = transactions
-        .filter(t => t.type === "expense")
+        .filter((t) => t.type === "expense")
         .reduce((acc, t) => acc + Number(t.amount), 0)
 
     const data = [
         { name: "Entradas", value: income },
-        { name: "Saídas", value: expense }
+        { name: "Saídas", value: expense },
     ]
 
     // ===============================
     // JSX
     // ===============================
     return (
-        <div className="p-6 max-w-4xl mx-auto">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">Controle Financeiro</h1>
-                <button onClick={logout} className="btn bg-red-600">
-                    Sair
-                </button>
-            </div>
+        <div className="min-h-screen bg-gray-100 p-6">
+            <div className="max-w-5xl mx-auto">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <form onSubmit={addOrEditTransaction} className="card">
-                    <h2 className="title">
-                        {editingId ? "Editar Lançamento" : "Novo Lançamento"}
+                {/* HEADER */}
+                <div className="flex justify-between items-center mb-8">
+                    <h1 className="text-3xl font-bold text-gray-800">
+                        💰 Controle Financeiro
+                    </h1>
+
+                    <button
+                        onClick={logout}
+                        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
+                    >
+                        Sair
+                    </button>
+                </div>
+
+                {/* GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    {/* FORM */}
+                    <form
+                        onSubmit={addOrEditTransaction}
+                        className="bg-white p-6 rounded-2xl shadow-md space-y-4"
+                    >
+                        <h2 className="text-xl font-semibold text-gray-700">
+                            {editingId ? "Editar Lançamento" : "Novo Lançamento"}
+                        </h2>
+
+                        <input
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Descrição"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+
+                        <input
+                            type="text"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Valor (ex: 1200 ou 1200,50)"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            required
+                        />
+
+                        <select
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                        >
+                            <option value="expense">Saída</option>
+                            <option value="income">Entrada</option>
+                        </select>
+
+                        <div className="flex gap-3">
+                            <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition">
+                                {editingId ? "Atualizar" : "Salvar"}
+                            </button>
+
+                            {editingId && (
+                                <button
+                                    type="button"
+                                    onClick={resetForm}
+                                    className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded-lg transition"
+                                >
+                                    Cancelar
+                                </button>
+                            )}
+                        </div>
+                    </form>
+
+                    {/* RESUMO */}
+                    <div className="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
+                        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                            Resumo
+                        </h2>
+
+                        <div className="space-y-1 text-center mb-4">
+                            <p className="text-green-600 font-medium">
+                                Entradas: {formatBRL(income)}
+                            </p>
+
+                            <p className="text-red-600 font-medium">
+                                Saídas: {formatBRL(expense)}
+                            </p>
+
+                            <p className="text-lg font-bold text-gray-800">
+                                Saldo: {formatBRL(income - expense)}
+                            </p>
+                        </div>
+
+                        <PieChart width={240} height={240}>
+                            <Pie
+                                data={data}
+                                dataKey="value"
+                                cx="50%"
+                                cy="50%"
+                                outerRadius={80}
+                                label
+                            >
+                                <Cell fill="#22c55e" />
+                                <Cell fill="#ef4444" />
+                            </Pie>
+                            <Tooltip formatter={(v) => formatBRL(v)} />
+                        </PieChart>
+                    </div>
+                </div>
+
+                {/* LISTA */}
+                <div className="bg-white p-6 rounded-2xl shadow-md mt-8">
+                    <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                        Lançamentos
                     </h2>
 
-                    <input
-                        className="input"
-                        placeholder="Descrição"
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                        required
-                    />
-
-                    <input
-                        type="text"
-                        className="input"
-                        placeholder="Valor (ex: 1200 ou 1200,50)"
-                        value={amount}
-                        onChange={e => setAmount(e.target.value)}
-                        required
-                    />
-
-                    <select
-                        className="input"
-                        value={type}
-                        onChange={e => setType(e.target.value)}
-                    >
-                        <option value="expense">Saída</option>
-                        <option value="income">Entrada</option>
-                    </select>
-
-                    <div className="flex gap-2">
-                        <button className="btn flex-1">
-                            {editingId ? "Atualizar" : "Salvar"}
-                        </button>
-
-                        {editingId && (
-                            <button
-                                type="button"
-                                onClick={resetForm}
-                                className="btn bg-gray-500 flex-1"
+                    <div className="space-y-3">
+                        {transactions.map((t) => (
+                            <div
+                                key={t.id}
+                                className="flex justify-between items-center bg-gray-50 p-4 rounded-lg hover:shadow-sm transition"
                             >
-                                Cancelar
-                            </button>
-                        )}
+                                <div>
+                                    <p className="font-medium text-gray-800">
+                                        {t.description}
+                                    </p>
+
+                                    <span
+                                        className={
+                                            t.type === "income"
+                                                ? "text-green-600 font-semibold"
+                                                : "text-red-600 font-semibold"
+                                        }
+                                    >
+                                        {formatBRL(Number(t.amount))}
+                                    </span>
+                                </div>
+
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => editTransaction(t)}
+                                        className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition"
+                                    >
+                                        Editar
+                                    </button>
+
+                                    <button
+                                        onClick={() => deleteTransaction(t.id)}
+                                        className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm transition"
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </form>
-
-                <div className="card flex flex-col items-center">
-                    <h2 className="title">Resumo</h2>
-
-                    <p className="text-green-600">
-                        Entradas: {formatBRL(income)}
-                    </p>
-
-                    <p className="text-red-600">
-                        Saídas: {formatBRL(expense)}
-                    </p>
-
-                    <p className="font-bold mb-4">
-                        Saldo: {formatBRL(income - expense)}
-                    </p>
-
-                    <PieChart width={240} height={240}>
-                        <Pie
-                            data={data}
-                            dataKey="value"
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={80}
-                            label
-                        >
-                            <Cell fill="#22c55e" />
-                            <Cell fill="#ef4444" />
-                        </Pie>
-                        <Tooltip formatter={(v) => formatBRL(v)} />
-                    </PieChart>
                 </div>
-            </div>
 
-            <div className="card mt-6">
-                <h2 className="title">Lançamentos</h2>
-
-                {transactions.map(t => (
-                    <div
-                        key={t.id}
-                        className="flex justify-between items-center border-b py-2"
-                    >
-                        <div>
-                            <p>{t.description}</p>
-                            <span
-                                className={
-                                    t.type === "income"
-                                        ? "text-green-600"
-                                        : "text-red-600"
-                                }
-                            >
-                                {formatBRL(Number(t.amount))}
-                            </span>
-                        </div>
-
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => editTransaction(t)}
-                                className="btn bg-blue-600"
-                            >
-                                Editar
-                            </button>
-
-                            <button
-                                onClick={() => deleteTransaction(t.id)}
-                                className="btn bg-red-600"
-                            >
-                                Excluir
-                            </button>
-                        </div>
-                    </div>
-                ))}
             </div>
         </div>
     )
 }
-
