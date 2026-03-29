@@ -87,11 +87,11 @@ export default function Dashboard() {
     ]
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
 
-            <div className="w-full max-w-md flex flex-col items-center gap-6">
+            {/* 👇 container CENTRALIZADO DE VERDADE */}
+            <div className="w-full max-w-md mx-auto flex flex-col items-center gap-6 px-4">
 
-                {/* HEADER */}
                 <h1 className="text-3xl font-bold text-gray-800 text-center">
                     💰 Controle Financeiro
                 </h1>
