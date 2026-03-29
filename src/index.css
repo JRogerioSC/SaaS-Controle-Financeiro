@@ -1,4 +1,4 @@
-/* 🔥 GARANTE CENTRALIZAÇÃO REAL */
+/* 🔥 CENTRALIZA EM QUALQUER TELA (CELULAR INCLUSO) */
 html,
 body {
   height: 100%;
@@ -12,20 +12,20 @@ body {
 
   display: flex;
   justify-content: center;
-  /* 👈 CENTRALIZA HORIZONTAL */
+  /* horizontal */
+  align-items: center;
+  /* vertical */
 }
 
-/* Reset básico */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Arial, sans-serif;
-  background: #f3f4f6;
-  color: #111827;
+/* garante que o React ocupe tudo */
+#root {
+  width: 100%;
 }
 
-/* Centralização */
+/* Centralização (caso use essa classe) */
 .center {
-  min-height: 100vh;
+  min-height: 100dvh;
+  /* 🔥 corrigido pra mobile */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +36,9 @@ body {
 .card {
   width: 100%;
   max-width: 350px;
+  margin: auto;
+  /* 🔥 garante centro */
+
   background: #ffffff;
   padding: 2rem;
   border-radius: 12px;
@@ -45,7 +48,6 @@ body {
   flex-direction: column;
   gap: 0.9rem;
 
-  /* 👇 centraliza elementos menores (botão) */
   align-items: center;
 }
 
@@ -77,20 +79,19 @@ body {
 /* Botão */
 .btn {
   width: 80%;
-  /* 👈 menor que 100% */
   max-width: 250px;
-  /* 👈 limite bonito */
   padding: 0.75rem;
+
   background: #2563eb;
   color: #ffffff;
   border: none;
   border-radius: 8px;
+
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 
-  /* 👇 centraliza */
   align-self: center;
 }
 
@@ -103,7 +104,7 @@ body {
   transform: translateY(0);
 }
 
-/* Espaço extra entre elementos */
+/* Remove sobra no final */
 .card>*:last-child {
   margin-bottom: 0;
 }
