@@ -9,9 +9,6 @@ export default function Dashboard() {
     const [type, setType] = useState("expense")
     const [editingId, setEditingId] = useState(null)
 
-    // ===============================
-    // Utils
-    // ===============================
     function normalizeAmount(value) {
         return Number(String(value).replace(",", "."))
     }
@@ -23,9 +20,6 @@ export default function Dashboard() {
         })
     }
 
-    // ===============================
-    // API
-    // ===============================
     async function loadTransactions() {
         const res = await api.get("/transactions")
         setTransactions(res.data)
@@ -79,9 +73,6 @@ export default function Dashboard() {
         loadTransactions()
     }, [])
 
-    // ===============================
-    // Cálculos
-    // ===============================
     const income = transactions
         .filter((t) => t.type === "income")
         .reduce((acc, t) => acc + Number(t.amount), 0)
@@ -95,12 +86,10 @@ export default function Dashboard() {
         { name: "Saídas", value: expense },
     ]
 
-    // ===============================
-    // JSX
-    // ===============================
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <div className="max-w-5xl mx-auto">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+            <div className="w-full max-w-5xl">
 
                 {/* HEADER */}
                 <div className="flex justify-between items-center mb-8">
