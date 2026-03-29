@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.rogerio.financeiro",
+            "sha256_cert_fingerprints": [
+                "7D:D0:F1:EB:76:A7:A9:99:31:DD:6F:90:91:C3:E9:45:9F:8E:7E:2A:E6:82:6E:FE:46:BC:0E:E2:D4:4F:71:15"
+            ]
+        }
+    }
+]
