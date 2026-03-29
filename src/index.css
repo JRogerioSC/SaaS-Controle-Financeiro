@@ -1,4 +1,4 @@
-/* 🔥 CENTRALIZA EM QUALQUER TELA (CELULAR INCLUSO) */
+/* 🔥 CENTRALIZA SEM CORTAR NO CELULAR */
 html,
 body {
   height: 100%;
@@ -13,8 +13,10 @@ body {
   display: flex;
   justify-content: center;
   /* horizontal */
-  align-items: center;
-  /* vertical */
+
+  /* ❌ REMOVIDO:
+     align-items: center;
+     (isso estava cortando o topo) */
 }
 
 /* garante que o React ocupe tudo */
@@ -22,10 +24,9 @@ body {
   width: 100%;
 }
 
-/* Centralização (caso use essa classe) */
+/* Centralização (corrigida) */
 .center {
   min-height: 100dvh;
-  /* 🔥 corrigido pra mobile */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +38,6 @@ body {
   width: 100%;
   max-width: 350px;
   margin: auto;
-  /* 🔥 garante centro */
 
   background: #ffffff;
   padding: 2rem;
