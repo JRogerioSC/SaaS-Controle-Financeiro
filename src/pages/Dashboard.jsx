@@ -87,9 +87,9 @@ export default function Dashboard() {
     ]
 
     return (
-        <div className="min-h-screen w-full bg-gray-100 flex justify-center items-center">
+        <div className="min-h-screen w-full bg-gray-100 flex justify-center overflow-y-auto py-10">
 
-            {/* 🔥 CENTRALIZA DE VERDADE */}
+            {/* CENTRALIZADO */}
             <div className="w-full max-w-md flex flex-col items-center gap-6 mx-auto px-4">
 
                 <h1 className="text-3xl font-bold text-gray-800 text-center w-full">
@@ -138,7 +138,7 @@ export default function Dashboard() {
                         <option value="income">Entrada</option>
                     </select>
 
-                    <div className="flex gap-3 justify-center">
+                    <div className="flex gap-3 justify-center mt-2">
                         <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition">
                             {editingId ? "Atualizar" : "Salvar"}
                         </button>
