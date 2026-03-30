@@ -1,4 +1,4 @@
-#Mon Mar 30 20:18:30 BRT 2026
+#Mon Mar 30 20:41:26 BRT 2026
 base.0=C\:\\Users\\User\\Desktop\\SaaS-Controle-Financeiro\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

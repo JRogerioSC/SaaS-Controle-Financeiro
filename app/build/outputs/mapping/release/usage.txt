@@ -10286,9 +10286,6 @@ com.google.j2objc.annotations.WeakOuter
 com.google.thirdparty.publicsuffix.PublicSuffixPatterns
 com.google.thirdparty.publicsuffix.PublicSuffixType
 com.google.thirdparty.publicsuffix.TrieParser
-com.rogerio.financeiro.Application
-com.rogerio.financeiro.DelegationService
-com.rogerio.financeiro.LauncherActivity
 kotlin.ArrayIntrinsicsKt
 kotlin.BuilderInference
 kotlin.CharCodeJVMKt
