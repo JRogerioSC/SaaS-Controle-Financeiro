@@ -3,8 +3,8 @@
 # min_api: 21
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.2"}
-# pg_map_id: 68de457
-# pg_map_hash: SHA-256 68de45756f71971116a69b2ebd70d633523113cbe0034cd4d66af45faaf4caff
+# pg_map_id: dff90d8
+# pg_map_hash: SHA-256 dff90d8fdb32a29b7b815127e2a3234f9de7e588b5b74df2b0efb87745128e21
 android.support.customtabs.ICustomTabsCallback -> a.a:
 # {"id":"sourceFile","fileName":"ICustomTabsCallback.java"}
     java.lang.String DESCRIPTOR -> a
@@ -22694,6 +22694,22 @@ androidx.versionedparcelable.VersionedParcelParcel -> androidx.versionedparcelab
     1:6:void writeBoolean(boolean):181:181 -> y
 androidx.versionedparcelable.VersionedParcelable -> H.a:
 # {"id":"sourceFile","fileName":"VersionedParcelable.java"}
+app.netlify.sasscontrolefinanceiro.twa.Application -> app.netlify.sasscontrolefinanceiro.twa.Application:
+# {"id":"sourceFile","fileName":"Application.java"}
+    1:4:void <init>():20:20 -> <init>
+    1:4:void onCreate():26:26 -> onCreate
+app.netlify.sasscontrolefinanceiro.twa.DelegationService -> app.netlify.sasscontrolefinanceiro.twa.DelegationService:
+# {"id":"sourceFile","fileName":"DelegationService.java"}
+    1:4:void <init>():5:5 -> <init>
+    1:4:void onCreate():9:9 -> onCreate
+app.netlify.sasscontrolefinanceiro.twa.LauncherActivity -> app.netlify.sasscontrolefinanceiro.twa.LauncherActivity:
+# {"id":"sourceFile","fileName":"LauncherActivity.java"}
+    1:4:void <init>():25:25 -> <init>
+    1:5:android.net.Uri getLaunchingUrl():48:48 -> i
+    1:3:void onCreate(android.os.Bundle):33:33 -> onCreate
+    4:11:void onCreate(android.os.Bundle):38:38 -> onCreate
+    12:16:void onCreate(android.os.Bundle):39:39 -> onCreate
+    17:20:void onCreate(android.os.Bundle):41:41 -> onCreate
 com.google.androidbrowserhelper.R$drawable -> I.a:
     int ic_site_settings -> a
 com.google.androidbrowserhelper.R$string -> I.b:
@@ -24606,22 +24622,6 @@ com.google.common.collect.UnmodifiableListIterator -> M.s:
     1:4:void <init>():34:34 -> <init>
     1:6:void add(java.lang.Object):46:46 -> add
     1:6:void set(java.lang.Object):59:59 -> set
-com.rogerio.financeiro.Application -> com.rogerio.financeiro.Application:
-# {"id":"sourceFile","fileName":"Application.java"}
-    1:4:void <init>():20:20 -> <init>
-    1:4:void onCreate():26:26 -> onCreate
-com.rogerio.financeiro.DelegationService -> com.rogerio.financeiro.DelegationService:
-# {"id":"sourceFile","fileName":"DelegationService.java"}
-    1:4:void <init>():5:5 -> <init>
-    1:4:void onCreate():9:9 -> onCreate
-com.rogerio.financeiro.LauncherActivity -> com.rogerio.financeiro.LauncherActivity:
-# {"id":"sourceFile","fileName":"LauncherActivity.java"}
-    1:4:void <init>():25:25 -> <init>
-    1:5:android.net.Uri getLaunchingUrl():48:48 -> i
-    1:3:void onCreate(android.os.Bundle):33:33 -> onCreate
-    4:11:void onCreate(android.os.Bundle):38:38 -> onCreate
-    12:16:void onCreate(android.os.Bundle):39:39 -> onCreate
-    17:20:void onCreate(android.os.Bundle):41:41 -> onCreate
 kotlin.Lazy -> N.a:
 # {"id":"sourceFile","fileName":"Lazy.kt"}
     java.lang.Object getValue() -> getValue

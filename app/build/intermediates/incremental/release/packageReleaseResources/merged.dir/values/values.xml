@@ -29,6 +29,6 @@
     <string name="launchUrl" translatable="false">https://sasscontrolefinanceiro.netlify.app/</string>
     <string name="launcherName" translatable="false">Financeiro</string>
     <string name="orientation" translatable="false">portrait</string>
-    <string name="providerAuthority" translatable="false">com.rogerio.financeiro.fileprovider</string>
+    <string name="providerAuthority" translatable="false">app.netlify.sasscontrolefinanceiro.twa.fileprovider</string>
     <string name="webManifestUrl" translatable="false">https://sasscontrolefinanceiro.netlify.app/manifest.json</string>
 </resources>

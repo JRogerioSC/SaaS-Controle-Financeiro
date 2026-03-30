@@ -7668,6 +7668,15 @@ androidx.viewpager.widget.ViewPager$SavedState
 androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
 androidx.viewpager.widget.ViewPager$ViewPositionComparator
 androidx.viewpager.widget.ViewPager
+app.netlify.sasscontrolefinanceiro.twa.R$bool
+app.netlify.sasscontrolefinanceiro.twa.R$color
+app.netlify.sasscontrolefinanceiro.twa.R$drawable
+app.netlify.sasscontrolefinanceiro.twa.R$integer
+app.netlify.sasscontrolefinanceiro.twa.R$mipmap
+app.netlify.sasscontrolefinanceiro.twa.R$raw
+app.netlify.sasscontrolefinanceiro.twa.R$string
+app.netlify.sasscontrolefinanceiro.twa.R$xml
+app.netlify.sasscontrolefinanceiro.twa.R
 com.google.androidbrowserhelper.BuildConfig
 com.google.androidbrowserhelper.R$drawable:
     private void <init>()
@@ -10277,15 +10286,9 @@ com.google.j2objc.annotations.WeakOuter
 com.google.thirdparty.publicsuffix.PublicSuffixPatterns
 com.google.thirdparty.publicsuffix.PublicSuffixType
 com.google.thirdparty.publicsuffix.TrieParser
-com.rogerio.financeiro.R$bool
-com.rogerio.financeiro.R$color
-com.rogerio.financeiro.R$drawable
-com.rogerio.financeiro.R$integer
-com.rogerio.financeiro.R$mipmap
-com.rogerio.financeiro.R$raw
-com.rogerio.financeiro.R$string
-com.rogerio.financeiro.R$xml
-com.rogerio.financeiro.R
+com.rogerio.financeiro.Application
+com.rogerio.financeiro.DelegationService
+com.rogerio.financeiro.LauncherActivity
 kotlin.ArrayIntrinsicsKt
 kotlin.BuilderInference
 kotlin.CharCodeJVMKt
