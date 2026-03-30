@@ -21,10 +21,10 @@ plugins {
 }
 
 def twaManifest = [
-    applicationId: 'com.rogerio.financeiro',
+    applicationId: 'app.netlify.sasscontrolefinanceiro.twa',
     hostName: 'sasscontrolefinanceiro.netlify.app', // The domain being opened in the TWA.
     launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
-    name: 'SaaS Controle Financeiro', // The application name.
+    name: 'Financeiro', // The application name.
     launcherName: 'Financeiro', // The name shown on the Android Launcher.
     themeColor: '#000000', // The color used for the status bar.
     themeColorDark: '#000000', // The color used for the dark status bar.
@@ -52,13 +52,13 @@ def twaManifest = [
 
 android {
     compileSdkVersion 36
-    namespace "com.rogerio.financeiro"
+    namespace "app.netlify.sasscontrolefinanceiro.twa"
     defaultConfig {
-        applicationId "com.rogerio.financeiro"
+        applicationId "app.netlify.sasscontrolefinanceiro.twa"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "4"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name
