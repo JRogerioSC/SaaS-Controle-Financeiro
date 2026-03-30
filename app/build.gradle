@@ -24,7 +24,7 @@ def twaManifest = [
     applicationId: 'app.netlify.sasscontrolefinanceiro.twa',
     hostName: 'sasscontrolefinanceiro.netlify.app', // The domain being opened in the TWA.
     launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
-    name: 'Financeiro', // The application name.
+    name: 'SaaS Controle Financeiro', // The application name.
     launcherName: 'Financeiro', // The name shown on the Android Launcher.
     themeColor: '#000000', // The color used for the status bar.
     themeColorDark: '#000000', // The color used for the dark status bar.
