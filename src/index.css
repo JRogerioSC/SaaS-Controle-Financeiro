@@ -242,52 +242,96 @@
 
 
 
- /* 🔥 RESPONSIVO (SEM ALTERAR SEU LAYOUT ORIGINAL) */
+ /* 🔥 RESPONSIVO MELHORADO (SEM QUEBRAR SEU LAYOUT) */
  @media (max-width: 600px) {
 
    .container {
      max-width: 100%;
+     padding: 0 0.2rem;
    }
 
    .dashboard {
-     padding: 1.5rem 0.8rem;
+     padding: 1rem 0.5rem;
    }
 
    .card {
-     padding: 1.5rem;
+     padding: 1.2rem;
    }
 
    .summary-card {
-     padding: 1.2rem;
+     padding: 1rem;
+   }
+
+   .summary-card h2 {
+     font-size: 1.4rem;
+   }
+
+   .summary-values {
+     font-size: 0.85rem;
    }
 
    .form-card {
-     padding: 1.2rem;
+     padding: 1rem;
+     gap: 0.8rem;
+   }
+
+   .input {
+     padding: 0.65rem;
+     font-size: 0.9rem;
    }
 
    .chart-card {
-     padding: 1.2rem;
+     padding: 1rem;
+   }
+
+   /* 🔥 gráfico menor (ESSENCIAL no mobile) */
+   .chart-card svg {
+     width: 100% !important;
+     height: auto !important;
    }
 
    .list-card {
-     padding: 1.2rem;
+     padding: 1rem;
    }
 
-   /* evita quebrar layout na lista */
+   /* 🔥 layout mobile REAL */
    .transaction {
-     flex-wrap: wrap;
-     gap: 0.5rem;
+     flex-direction: column;
+     align-items: flex-start;
+     gap: 0.6rem;
    }
 
-   /* mantém botões organizados */
+   /* 🔥 força quebra de texto longo */
+   .transaction p {
+     word-break: break-word;
+   }
+
+   /* 🔥 botões melhores no mobile */
    .actions {
      width: 100%;
-     justify-content: flex-end;
+     justify-content: space-between;
    }
 
-   /* botão sair menor no celular */
+   .actions button {
+     flex: 1;
+     padding: 0.5rem;
+     font-size: 0.8rem;
+   }
+
+   /* 🔥 botões do form empilhados */
+   .button-group {
+     flex-direction: column;
+   }
+
+   .btn {
+     width: 100%;
+   }
+
+   /* 🔥 botão sair mais confortável */
    .logout-btn {
-     padding: 0.5rem 0.8rem;
-     font-size: 0.85rem;
+     padding: 0.5rem 0.7rem;
+     font-size: 0.8rem;
+     top: 8px;
+     right: 8px;
    }
  }
