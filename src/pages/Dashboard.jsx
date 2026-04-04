@@ -87,59 +87,75 @@ export default function Dashboard() {
     ]
 
     return (
-        <div className="min-h-screen w-full bg-gray-100 flex justify-center overflow-y-auto py-10">
+        <div className="min-h-screen bg-gray-100 flex justify-center py-10 px-3 relative">
 
-            {/* CENTRALIZADO */}
-            <div className="w-full max-w-md flex flex-col items-center gap-6 mx-auto px-4">
+            {/* BOTÃO SAIR AGORA À ESQUERDA */}
+            <button
+                onClick={logout}
+                className="fixed top-4 left-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl shadow-lg z-50"
+            >
+                Sair
+            </button>
 
-                <h1 className="text-3xl font-bold text-gray-800 text-center w-full">
-                    💰 Controle Financeiro
+            <div className="w-full max-w-lg space-y-8">
+
+                <h1 className="text-2xl font-bold text-gray-800 text-center">
+                    💰 Financeiro
                 </h1>
 
-                <button
-                    onClick={logout}
-                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
-                >
-                    Sair
-                </button>
+                {/* RESUMO */}
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 rounded-2xl shadow-lg">
+                    <p className="text-sm opacity-80 mb-1">Saldo atual</p>
+                    <h2 className="text-2xl font-bold">
+                        {formatBRL(income - expense)}
+                    </h2>
+
+                    <div className="flex justify-between mt-5 text-sm">
+                        <span>🟢 {formatBRL(income)}</span>
+                        <span>🔴 {formatBRL(expense)}</span>
+                    </div>
+                </div>
 
                 {/* FORM */}
                 <form
                     onSubmit={addOrEditTransaction}
-                    className="bg-white p-6 rounded-2xl shadow-md w-full space-y-4 text-center"
+                    className="bg-white p-6 rounded-2xl shadow space-y-5"
                 >
-                    <h2 className="text-xl font-semibold text-gray-700">
-                        {editingId ? "Editar Lançamento" : "Novo Lançamento"}
+                    <h2 className="font-semibold text-gray-700">
+                        {editingId ? "Editar" : "Novo lançamento"}
                     </h2>
 
-                    <input
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Descrição"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
+                    {/* INPUTS COM MAIS ESPAÇO */}
+                    <div className="space-y-4">
+                        <input
+                            className="w-full border rounded-lg px-3 py-3 focus:ring-2 focus:ring-blue-500"
+                            placeholder="Descrição"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
 
-                    <input
-                        type="text"
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Valor"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        required
-                    />
+                        <input
+                            className="w-full border rounded-lg px-3 py-3 focus:ring-2 focus:ring-blue-500"
+                            placeholder="Valor"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            required
+                        />
 
-                    <select
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-center"
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                    >
-                        <option value="expense">Saída</option>
-                        <option value="income">Entrada</option>
-                    </select>
+                        <select
+                            className="w-full border rounded-lg px-3 py-3"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                        >
+                            <option value="expense">Saída</option>
+                            <option value="income">Entrada</option>
+                        </select>
+                    </div>
 
-                    <div className="flex gap-3 justify-center mt-2">
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition">
+                    {/* BOTÕES COM MAIS ESPAÇO */}
+                    <div className="flex gap-5 pt-3">
+                        <button className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
                             {editingId ? "Atualizar" : "Salvar"}
                         </button>
 
@@ -147,7 +163,7 @@ export default function Dashboard() {
                             <button
                                 type="button"
                                 onClick={resetForm}
-                                className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-6 rounded-lg transition"
+                                className="flex-1 bg-gray-400 text-white py-3 rounded-lg"
                             >
                                 Cancelar
                             </button>
@@ -155,69 +171,55 @@ export default function Dashboard() {
                     </div>
                 </form>
 
-                {/* RESUMO */}
-                <div className="bg-white p-6 rounded-2xl shadow-md w-full text-center">
-                    <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                        Resumo
-                    </h2>
-
-                    <p className="text-green-600">
-                        Entradas: {formatBRL(income)}
-                    </p>
-                    <p className="text-red-600">
-                        Saídas: {formatBRL(expense)}
-                    </p>
-                    <p className="font-bold">
-                        Saldo: {formatBRL(income - expense)}
-                    </p>
-
-                    <div className="flex justify-center mt-4">
-                        <PieChart width={240} height={240}>
-                            <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={80}>
-                                <Cell fill="#22c55e" />
-                                <Cell fill="#ef4444" />
-                            </Pie>
-                            <Tooltip formatter={(v) => formatBRL(v)} />
-                        </PieChart>
-                    </div>
+                {/* GRÁFICO */}
+                <div className="bg-white p-6 rounded-2xl shadow flex justify-center">
+                    <PieChart width={220} height={220}>
+                        <Pie data={data} dataKey="value" outerRadius={80}>
+                            <Cell fill="#22c55e" />
+                            <Cell fill="#ef4444" />
+                        </Pie>
+                        <Tooltip formatter={(v) => formatBRL(v)} />
+                    </PieChart>
                 </div>
 
                 {/* LISTA */}
-                <div className="bg-white p-6 rounded-2xl shadow-md w-full text-center">
-                    <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                <div className="bg-white p-6 rounded-2xl shadow space-y-5">
+                    <h2 className="font-semibold text-gray-700">
                         Lançamentos
                     </h2>
 
-                    <div className="space-y-3">
-                        {transactions.map((t) => (
-                            <div
-                                key={t.id}
-                                className="bg-gray-50 p-4 rounded-lg flex flex-col items-center"
-                            >
-                                <p>{t.description}</p>
-
-                                <span className={t.type === "income" ? "text-green-600" : "text-red-600"}>
-                                    {formatBRL(Number(t.amount))}
+                    {transactions.map((t) => (
+                        <div
+                            key={t.id}
+                            className="flex justify-between items-center bg-gray-50 p-4 rounded-lg"
+                        >
+                            <div>
+                                <p className="text-sm font-medium">
+                                    {t.description}
+                                </p>
+                                <span className="text-sm text-gray-700">
+                                    {formatBRL(Number(t.amount))} • {t.type === "income" ? "Entrada" : "Saída"}
                                 </span>
-
-                                <div className="flex gap-2 mt-2">
-                                    <button
-                                        onClick={() => editTransaction(t)}
-                                        className="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm"
-                                    >
-                                        Editar
-                                    </button>
-
-                                    <button
-                                        onClick={() => deleteTransaction(t.id)}
-                                        className="px-3 py-1 bg-red-600 text-white rounded-lg text-sm"
-                                    >
-                                        Excluir
-                                    </button>
-                                </div>
                             </div>
-                        ))}
-                    </div>
+
+                            {/* BOTÕES MAIS ESPAÇADOS */}
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={() => editTransaction(t)}
+                                    className="px-3 py-1 bg-blue-500 text-white rounded-lg text-xs"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    onClick={() => deleteTransaction(t.id)}
+                                    className="px-3 py-1 bg-red-500 text-white rounded-lg text-xs"
+                                >
+                                    Excluir
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
 
             </div>

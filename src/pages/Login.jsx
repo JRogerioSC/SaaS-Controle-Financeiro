@@ -5,10 +5,13 @@ export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     async function handleLogin(e) {
         e.preventDefault()
         setError("")
+        setLoading(true)
 
         try {
             const res = await api.post("/login", {
@@ -18,20 +21,19 @@ export default function Login() {
 
             localStorage.setItem("token", res.data.token)
 
-            // login OK → dashboard
             window.location.href = "/dashboard"
 
         } catch (err) {
             const message = err.response?.data?.error
 
-            // 👉 usuário não existe → cadastro
             if (message === "Usuário não encontrado") {
                 window.location.href = "/register"
                 return
             }
 
-            // outros erros (senha errada, etc)
             setError(message || "Erro ao fazer login")
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -53,17 +55,61 @@ export default function Login() {
                     required
                 />
 
-                <input
-                    type="password"
-                    className="input"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    required
-                />
+                {/* Campo senha com olhinho */}
+                <div style={{ position: "relative" }}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        className="input"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required
+                    />
 
-                <button className="btn">Entrar</button>
+                    <span
+                        onClick={() => setShowPassword(!showPassword)}
+                        style={{
+                            position: "absolute",
+                            right: "10px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            fontSize: "14px"
+                        }}
+                    >
+                        {showPassword ? "🙈" : "👁️"}
+                    </span>
+                </div>
+
+                <button className="btn" disabled={loading}>
+                    {loading ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+                            <div className="spinner"></div>
+                            Carregando...
+                        </div>
+                    ) : (
+                        "Entrar"
+                    )}
+                </button>
             </form>
+
+            {/* Spinner CSS */}
+            <style>
+                {`
+                .spinner {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #ccc;
+                    border-top: 2px solid #000;
+                    border-radius: 50%;
+                    animation: spin 0.6s linear infinite;
+                }
+
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+                `}
+            </style>
         </div>
     )
 }
