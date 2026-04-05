@@ -18,7 +18,10 @@ export default function Register() {
                 password
             })
 
-            // após cadastro vai para login
+            // 🔥 limpa qualquer estado antes de ir pro login
+            localStorage.removeItem("token")
+            localStorage.removeItem("guest")
+
             window.location.href = "/login"
 
         } catch (err) {
@@ -67,7 +70,6 @@ export default function Register() {
 
                 <button className="btn mb-2">Cadastrar</button>
 
-                {/* botão voltar para login */}
                 <button
                     type="button"
                     onClick={goToLogin}

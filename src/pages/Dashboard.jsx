@@ -9,6 +9,8 @@ export default function Dashboard() {
     const [type, setType] = useState("expense")
     const [editingId, setEditingId] = useState(null)
 
+    const [isGuest, setIsGuest] = useState(false)
+
     function normalizeAmount(value) {
         return Number(String(value).replace(",", "."))
     }
@@ -20,7 +22,15 @@ export default function Dashboard() {
         })
     }
 
-    async function loadTransactions() {
+    async function loadTransactions(guestParam) {
+        const guest = guestParam ?? (localStorage.getItem("guest") === "true")
+
+        if (guest) {
+            const data = JSON.parse(localStorage.getItem("guest_transactions") || "[]")
+            setTransactions(data)
+            return
+        }
+
         const res = await api.get("/transactions")
         setTransactions(res.data)
     }
@@ -28,22 +38,52 @@ export default function Dashboard() {
     async function addOrEditTransaction(e) {
         e.preventDefault()
 
-        const payload = { description, amount: normalizeAmount(amount), type }
+        const payload = {
+            description,
+            amount: normalizeAmount(amount),
+            type
+        }
 
-        if (editingId) {
-            await api.put(`/transactions/${editingId}`, payload)
+        if (isGuest) {
+            let data = JSON.parse(localStorage.getItem("guest_transactions") || "[]")
+
+            if (editingId) {
+                data = data.map(t =>
+                    t.id === editingId ? { ...t, ...payload } : t
+                )
+            } else {
+                const newTransaction = {
+                    id: Date.now(),
+                    ...payload
+                }
+                data.push(newTransaction)
+            }
+
+            localStorage.setItem("guest_transactions", JSON.stringify(data))
         } else {
-            await api.post("/transactions", payload)
+            if (editingId) {
+                await api.put(`/transactions/${editingId}`, payload)
+            } else {
+                await api.post("/transactions", payload)
+            }
         }
 
         resetForm()
-        loadTransactions()
+        loadTransactions(isGuest)
     }
 
     async function deleteTransaction(id) {
         if (!window.confirm("Deseja excluir este lançamento?")) return
-        await api.delete(`/transactions/${id}`)
-        loadTransactions()
+
+        if (isGuest) {
+            let data = JSON.parse(localStorage.getItem("guest_transactions") || "[]")
+            data = data.filter(t => t.id !== id)
+            localStorage.setItem("guest_transactions", JSON.stringify(data))
+        } else {
+            await api.delete(`/transactions/${id}`)
+        }
+
+        loadTransactions(isGuest)
     }
 
     function editTransaction(t) {
@@ -62,11 +102,20 @@ export default function Dashboard() {
 
     function logout() {
         localStorage.removeItem("token")
+        localStorage.removeItem("guest")
         window.location.href = "/login"
     }
 
     useEffect(() => {
-        loadTransactions()
+        const guest = localStorage.getItem("guest") === "true"
+
+        setIsGuest(guest)
+
+        // 🔥 garante leitura correta mesmo em navegação rápida
+        setTimeout(() => {
+            loadTransactions(guest)
+        }, 0)
+
     }, [])
 
     const income = transactions
@@ -92,6 +141,12 @@ export default function Dashboard() {
             <div className="container">
 
                 <h1 className="page-title">💰 Financeiro</h1>
+
+                {isGuest && (
+                    <p style={{ color: "orange", fontSize: "14px" }}>
+                        Modo visitante (dados não são salvos na conta)
+                    </p>
+                )}
 
                 <div className="summary-card">
                     <p>Saldo atual</p>

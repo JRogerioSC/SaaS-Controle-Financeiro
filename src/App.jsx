@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard"
 
 export default function App() {
   const token = localStorage.getItem("token")
+  const guest = localStorage.getItem("guest") === "true"
 
   return (
     <BrowserRouter>
@@ -22,7 +23,7 @@ export default function App() {
         {/* dashboard protegido */}
         <Route
           path="/dashboard"
-          element={token ? <Dashboard /> : <Navigate to="/login" />}
+          element={token || guest ? <Dashboard /> : <Navigate to="/login" />}
         />
 
         {/* fallback */}

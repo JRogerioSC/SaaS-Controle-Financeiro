@@ -147,7 +147,7 @@
  .summary-card {
    background: #2563eb;
    color: white;
-   padding: 1.5rem;
+   padding: 1.0rem;
    border-radius: 12px;
  }
 
@@ -276,7 +276,7 @@
    }
 
    .input {
-     padding: 0.65rem;
+     padding: 0.27rem;
      font-size: 0.9rem;
    }
 

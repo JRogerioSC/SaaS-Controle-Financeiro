@@ -20,8 +20,12 @@ export default function Login() {
             })
 
             localStorage.setItem("token", res.data.token)
+            localStorage.removeItem("guest")
 
-            window.location.href = "/dashboard"
+            // 🔥 garante persistência antes de redirecionar
+            setTimeout(() => {
+                window.location.href = "/dashboard"
+            }, 50)
 
         } catch (err) {
             const message = err.response?.data?.error
@@ -34,6 +38,22 @@ export default function Login() {
             setError(message || "Erro ao fazer login")
         } finally {
             setLoading(false)
+        }
+    }
+
+    // 🔥 LOGIN VISITANTE CORRIGIDO
+    function handleGuestLogin() {
+        try {
+            localStorage.setItem("guest", "true")
+            localStorage.removeItem("token")
+
+            // 🔥 força salvar antes de sair da página
+            setTimeout(() => {
+                window.location.href = "/dashboard"
+            }, 50)
+
+        } catch (err) {
+            console.error("Erro ao entrar como visitante:", err)
         }
     }
 
@@ -55,7 +75,6 @@ export default function Login() {
                     required
                 />
 
-                {/* Campo senha com olhinho */}
                 <div style={{ position: "relative" }}>
                     <input
                         type={showPassword ? "text" : "password"}
@@ -91,9 +110,18 @@ export default function Login() {
                         "Entrar"
                     )}
                 </button>
+
+                {/* 🔥 BOTÃO VISITANTE */}
+                <button
+                    type="button"
+                    onClick={handleGuestLogin}
+                    className="btn"
+                    style={{ marginTop: "10px", background: "#eee", color: "#000" }}
+                >
+                    Entrar como visitante
+                </button>
             </form>
 
-            {/* Spinner CSS */}
             <style>
                 {`
                 .spinner {
