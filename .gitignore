@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Gradle / Android
+.gradle/
+android/.gradle/
